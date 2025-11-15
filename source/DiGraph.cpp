@@ -49,9 +49,21 @@ void DiGraph::add_edge(int32_t source_id, int32_t target_id){
     target_node->add_in_edge(source_node);
 }
 
-void DiGraph::export_to_dot_file(std::string file_path) const {}
+void DiGraph::export_to_dot_file(std::string file_path) const {
+    std::fstream dot_file(file_path);
+    dot_file << "digraph {\n";
+    for (auto node : node_map){
+        for (auto target : node.second->get_out_edges()){
+            dot_file << "\t" << node.first << " -> " << target->get_id() << ";\n";
+        } 
+    }
+    dot_file << "}\n";
+    dot_file.close();
+}
 
-Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const { return Matrix<bool>(1, 1); }
+Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const { 
+    
+ }
 
 /* Do not change the code below here */
 
