@@ -62,7 +62,7 @@ void DiGraph::export_to_dot_file(std::string file_path) const {
 }
 
 Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const { 
-    
+    Matrix<bool> adjacency_matrix(get_node_count(), get_node_count());
  }
 
 /* Do not change the code below here */

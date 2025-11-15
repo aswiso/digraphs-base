@@ -13,7 +13,7 @@ template <typename T> class Matrix {
 
     public:
         Matrix(std::int32_t rows, std::int32_t columns): rows(rows), columns(columns){
-            contents = new T*(columns * rows);
+            contents = new T(columns * rows);
             for (int i = 0; i < columns * rows; i++){
                 contents[i] = 0;
             }
