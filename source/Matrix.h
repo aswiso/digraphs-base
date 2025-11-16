@@ -65,7 +65,7 @@ template <typename T> class Matrix {
             if (other.get_rows() != columns) throw std::invalid_argument("The number of rows of the other matrix should equal the number of columns of the given matrix.");
             Matrix<T> product(rows, other.get_columns());
             for (int y = 0; y < rows; y++) {
-                for (int x = 0; x < other.get_columns; x++){
+                for (int x = 0; x < other.get_columns(); x++){
                     // T value = multiply(get_row(y), other.get_column(x));
                     T sum{};
                     for (int i = 0; i < columns; i++){
