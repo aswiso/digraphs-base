@@ -6,30 +6,48 @@
 
 
 DiGraph get_graph_from_adjacency_matrix(const Matrix<bool>& adjacency_matrix){ 
-    DiGraph graph;
-    for (int i = 1; i < adjacency_matrix.get_columns(); i++){
-        graph.add_node();
-        for (int j = 1; j < adjacency_matrix.get_rows(); j++){
-            if (adjacency_matrix.get_content(i, j)) graph.add_edge(i, j);
-        }
-    }
-    return graph;
+	std::int32_t n = adjacency_matrix.get_rows();
+	std::int32_t m = adjacency_matrix.get_columns();
+	if (n != m) {
+		throw std::invalid_argument("The given adjacency matrix is not square");
+	}
+	DiGraph graph;
+
+	//alle Knoten anlegen
+	for (std::int32_t id = 0; id < n; ++id) {
+		graph.add_node();
+	}
+
+	for (std::int32_t r = 0; r < n; ++r) {
+		for (std::int32_t c = 0; c < m; ++c) {
+			if (adjacency_matrix.get_content(r, c)) {
+				graph.add_edge(r, c);
+			}
+		}
+	}
+
+	return graph;
 }
 
 Matrix<bool> get_reachability_matrix(const DiGraph& graph){ 
-    Matrix<bool> reachability_matrix = graph.get_adjacency_matrix_from_graph();
-    int len = reachability_matrix.get_columns();
-    for (int i = 0; i < len; i++){
-        reachability_matrix.set_content(i, i, true);
+    Matrix<bool> A = graph.get_adjacency_matrix_from_graph();
+    int n = A.get_columns();
+    for (int i = 0; i < n; i++){
+        A.set_content(i, i, true);
     }
-    for (int k = 0; k < len; k++) {
-        for (int i = 0; i < len; i++) {
-            if (reachability_matrix.get_content(i, k)) {
-                for (int j = 0; j < len; j++) {
-                    if (reachability_matrix.get_content(k, j)) reachability_matrix.set_content(i, j, true);
-                }
-            }
+    Matrix<bool> reachability_matrix(A);
+    Matrix<bool> power(A);
+    for (int i = 2; i <= n; i++){
+        Matrix<bool> nextPower(A * power);
+        {
+            Matrix<bool> power(nextPower);
         }
+        Matrix<bool> new_reachability_matrix(reachability_matrix + nextPower);
+        {
+            Matrix<bool> reachability_matrix(new_reachability_matrix);
+        }
+    }
+    
     return reachability_matrix;
 }
 

@@ -1,11 +1,11 @@
 #include "Node.h"
 
-Node::Node(std::int32_t id): id{id} {}
+Node::Node(std::int32_t id) : id(id) {}
 
 Node::~Node(){}
 
-std::int32_t Node::get_id(){ 
-    return id; 
+std::int32_t Node::get_id() {
+     return id; 
 }
 
 void Node::add_in_edge(Node* source){
@@ -21,5 +21,5 @@ std::vector<Node*> Node::get_in_edges(){
 }
 
 std::vector<Node*> Node::get_out_edges(){
-    return out_edges;
+    return out_edges; 
 }
