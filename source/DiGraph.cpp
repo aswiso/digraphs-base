@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+// Aufgabe 3a)
 
 DiGraph::DiGraph() : next_free_node_id(0) {}
 
@@ -14,39 +15,15 @@ DiGraph::~DiGraph(){
     node_map.clear();
 }
 
-//temporary fix for test_utils.cpp to run: `DiGraph E = get_graph_from_adjacency_matrix(A);`
-//caused apparently by double deletion when there are two shallow copies of DiGraph
-//destructor tries to free what has already been freed
-DiGraph::DiGraph(const DiGraph& other) {
-    next_free_node_id = other.next_free_node_id;
-    for (auto& [id, node] : other.node_map) {
-        node_map[id] = new Node(*node);
-    }
-}
-
-DiGraph& DiGraph::operator=(const DiGraph& other) {
-    if (this != &other) {
-        for (auto& [id, node] : node_map) delete node;
-        node_map.clear();
-        next_free_node_id = other.next_free_node_id;
-        for (auto& [id, node] : other.node_map) {
-            node_map[id] = new Node(*node);
-        }
-    }
-    return *this;
-}
-
-
-
 std::int32_t DiGraph::get_node_count() const { 
     return static_cast<std::int32_t>(node_map.size()); 
 }
 
 Node* DiGraph::add_node(){ 
-    Node* new_node = new Node(next_free_node_id); 
-    node_map[next_free_node_id] = new_node;      
-    next_free_node_id++;                        
-    return new_node;                           
+    Node* new_node = new Node(next_free_node_id); // Knoten erstellen
+    node_map[next_free_node_id] = new_node;      // In Map eintragen // darf man so?!!
+    next_free_node_id++;                        // ID für nächsten Knoten erhöhen
+    return new_node;                           // Pointer zurückgeben
 }
 
 Node* DiGraph::add_node_carelessly(std::int32_t new_node_id){ 
@@ -63,19 +40,21 @@ Node* DiGraph::get_node_by_id(std::int32_t node_id) const {
     if (!node_map.contains(node_id)) {
         throw std::invalid_argument("Node ID not found");
     }
-    return node_map.at(node_id); 
+    return node_map.at(node_id); // gibt direkt den Wert zurück
     
 }
 
+//Aufgabe 3b)
+
 void DiGraph::add_edge(int32_t source_id, int32_t target_id){
     
-
+    // Zeiger auf Nodes holen
     Node* source_node = get_node_by_id(source_id);
     Node* target_node = get_node_by_id(target_id);
 
-
-    source_node->add_out_edge(target_node); 
-    target_node->add_in_edge(source_node); 
+    // Kante einfügen
+    source_node->add_out_edge(target_node); // source -> target
+    target_node->add_in_edge(source_node); // target <- source
     
 }
 
@@ -102,7 +81,7 @@ void DiGraph::export_to_dot_file(std::string file_path) const {
 }
 
 
-
+//Aufgabe 7a)
 Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const { 
     std::int32_t max_id = 0;            //größte Knoten ID bestimmen
     for (const auto& pair : node_map) {
@@ -111,6 +90,7 @@ Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const {
     }
 
     Matrix<bool> matrix(max_id + 1, max_id + 1);
+
 
 
     for (const auto& pair : node_map) {

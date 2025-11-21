@@ -10,29 +10,25 @@ template <typename T> class Matrix {
         const std::int32_t rows;
         const std::int32_t columns;
 
-
+    // Aufgabe 6) + g) supporting template type
     public:
+
+        // Aufgabe 6a)
         Matrix(std::int32_t rows, std::int32_t columns): rows(rows), columns(columns){
+
             contents = new T[rows * columns]; 
-            for (std::int32_t i = 0; i < rows * columns; i++) {
-                contents[i] = T(0);
-            }
-        }
-        
-        //additional copy constructor for: `auto d = Mx + My;` test_matrix.cpp test
-        //because default copy assignment operator can't assign: `rows = other.rows` to const rows
-        Matrix(const Matrix<T>& other): rows(other.rows), columns(other.columns) {
-            contents = new T[rows * columns];
-            for (std::int32_t i = 0; i < rows * columns; i++) {
-                contents[i] = other.contents[i];
-            }
+
+            for (std::int32_t i = 0; i < rows * columns; i++)
+            contents[i] = T(0);
         }
 
+        // Aufgabe 6b)
         ~Matrix(){
             delete[] contents;
             contents = nullptr;
         }
 
+        // Aufgabe 6a)
         std::int32_t get_columns() const { 
             return columns; 
         }
@@ -40,11 +36,13 @@ template <typename T> class Matrix {
             return rows;
         }
 
+        // Aufgabe 6d)
         std::vector<T> get_row(std::int32_t row){ 
             if (row < 0 || row >= rows)
                 throw std::invalid_argument("Invalid row index");
             
             std::vector<T> result(columns);
+           // result.reserve(columns); // wegen effizienz
 
             for (std::int32_t col = 0; col < columns; ++col) {
                 result[col] = contents[row * columns + col];
@@ -57,6 +55,7 @@ template <typename T> class Matrix {
                 throw std::invalid_argument("Invalid column index");
 
             std::vector<T> result(rows);
+           // result.reserve(rows);
 
             for (std::int32_t row = 0; row < rows; ++row){
                 result[row] = contents[row * columns + column];
@@ -64,11 +63,12 @@ template <typename T> class Matrix {
             return result;; 
         }
 
+        // Aufgabe 6c)
         T get_content(std::int32_t row, std::int32_t column) const {
             if (row < 0 || row >= rows || column < 0 || column >= columns)
                 throw std::invalid_argument("Invalid row or column index");
             
-            return contents[row * columns + column]; 
+            return contents[row * columns + column]; // row-major zugriff
         }
 
         void set_content(std::int32_t row, std::int32_t column, T value){
@@ -79,6 +79,7 @@ template <typename T> class Matrix {
 
         }
 
+        //Aufgabe 6e)
         Matrix<T> operator+(const Matrix<T>& other){ 
             if (rows != other.rows || columns != other.columns)
                 throw std::invalid_argument("Matrices have incompatible dimensions");
@@ -92,6 +93,7 @@ template <typename T> class Matrix {
             return result;
         }
 
+        //Aufgabe 6f)
         Matrix<T> operator*(const Matrix<T>& other){ 
             if (columns != other.rows)
                 throw std::invalid_argument("Matrices have incompatible dimensions");

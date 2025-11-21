@@ -1,23 +1,23 @@
 #pragma once
 
-#define AUTHORS_TWO_A ""
-#define AUTHORS_TWO_B ""
+#define AUTHORS_TWO_A "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_TWO_B "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
 
-#define AUTHORS_THREE_A ""
-#define AUTHORS_THREE_B ""
+#define AUTHORS_THREE_A "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_THREE_B "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
 
-#define AUTHORS_FOUR_A ""
-#define AUTHORS_FOUR_B ""
+#define AUTHORS_FOUR_A "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_FOUR_B "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
 
-#define AUTHORS_SIX_A ""
-#define AUTHORS_SIX_B ""
-#define AUTHORS_SIX_C ""
-#define AUTHORS_SIX_D ""
-#define AUTHORS_SIX_E ""
-#define AUTHORS_SIX_F ""
-#define AUTHORS_SIX_G ""
+#define AUTHORS_SIX_A "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SIX_B "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SIX_C "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SIX_D "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SIX_E "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SIX_F "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SIX_G "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
 
-#define AUTHORS_SEVEN_A ""
-#define AUTHORS_SEVEN_B ""
+#define AUTHORS_SEVEN_A "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
+#define AUTHORS_SEVEN_B "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"
 
-#define AUTHORS_EIGHT_A ""
+#define AUTHORS_EIGHT_A "Saiar Akhmetzianov, Kaan Elman, Larissa Ende"

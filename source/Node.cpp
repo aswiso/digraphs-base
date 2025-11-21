@@ -1,12 +1,16 @@
 #include "Node.h"
 
-Node::Node(std::int32_t id) : id(id) {}
+//Aufgabe 2a)
+
+Node::Node(std::int32_t id) : id(id) {} // Member-Initializer-List
 
 Node::~Node(){}
 
+// Aufgabe 2b)
+
 std::int32_t Node::get_id() {
      return id; 
-}
+    }
 
 void Node::add_in_edge(Node* source){
     in_edges.push_back(source);

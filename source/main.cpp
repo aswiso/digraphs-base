@@ -1,34 +1,47 @@
-#include <cstdint>
-#include <iostream>
-#include "Matrix.h"
 #include "DiGraph.h"
-#include "Node.h"
-#include "utils.h"
+#include <iostream>
 
-int main(int argc, char** argv) {
-	std::cout << "Please feel free to implement your own code in the main.cpp." << std::endl;
+int main() {
+    // === Aufgabe 2: Node testen ===
+    Node a(1);
+    Node b(2);
 
-	DiGraph D;
-    D.add_node();
-    D.add_node();
-    D.add_edge(0,1);
-    Matrix<bool> A = D.get_adjacency_matrix_from_graph();
-    std::cout << "adjacency matrix" << std::endl;
-    for (int i = 0; i < A.get_rows(); ++i) {
-        for (int j = 0; j < A.get_columns(); ++j) {
-            std::cout << A.get_content(i, j) << " ";
+    b.add_in_edge(&a);    // a -> b
+    a.add_out_edge(&b);   // a -> b
+
+    std::cout << "Node b in_edges: ";
+    for (Node* n : b.get_in_edges()) {
+        std::cout << n->get_id() << " ";  // sollte 1 ausgeben
+    }
+    std::cout << "\n";
+
+    std::cout << "Node a out_edges: ";
+    for (Node* n : a.get_out_edges()) {
+        std::cout << n->get_id() << " ";  // sollte 2 ausgeben
+    }
+    std::cout << "\n\n";
+
+    // === Aufgabe 3: DiGraph testen ===
+    DiGraph g;
+    Node* n1 = g.add_node();  // ID 0
+    Node* n2 = g.add_node();  // ID 1
+    Node* n3 = g.add_node();  // ID 2
+
+    g.add_edge(n1->get_id(), n2->get_id());  // 0 -> 1
+    g.add_edge(n2->get_id(), n3->get_id());  // 1 -> 2
+    g.add_edge(n1->get_id(), n3->get_id());  // 0 -> 2
+
+    std::cout << "DiGraph Knotenanzahl: " << g.get_node_count() << "\n";
+
+    // Alle Kanten ausgeben
+    for (auto& pair : *(g.get_node_map_ptr())) {
+        Node* node = pair.second;
+        std::cout << "Node " << node->get_id() << " -> ";
+        for (Node* target : node->get_out_edges()) {
+            std::cout << target->get_id() << " ";
         }
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 
-    DiGraph E = get_graph_from_adjacency_matrix(A);
-    Matrix<bool> R = get_reachability_matrix(D);
-    std::cout << "reachability matrix" << std::endl;
-    for (int i = 0; i < R.get_rows(); ++i) {
-        for (int j = 0; j < R.get_columns(); ++j) {
-            std::cout << R.get_content(i, j) << " ";
-        }
-        std::cout << std::endl;
-    }
-	return 0;
+    return 0;
 }
