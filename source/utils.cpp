@@ -29,23 +29,31 @@ DiGraph get_graph_from_adjacency_matrix(const Matrix<bool>& adjacency_matrix){
 
 Matrix<bool> get_reachability_matrix(const DiGraph& graph){ 
     Matrix<bool> A = graph.get_adjacency_matrix_from_graph();
-    int n = A.get_columns();
-    for (int i = 0; i < n; i++){
-        A.set_content(i, i, true);
-    }
-    Matrix<bool> reachability_matrix(A);
-    Matrix<bool> power(A);
-    for (int i = 2; i <= n; i++){
-        Matrix<bool> nextPower(A * power);
-        {
-            Matrix<bool> power(nextPower);
-        }
-        Matrix<bool> new_reachability_matrix(reachability_matrix + nextPower);
-        {
-            Matrix<bool> reachability_matrix(new_reachability_matrix);
-        }
-    }
-    
-    return reachability_matrix;
+	Matrix<bool> R = graph.get_adjacency_matrix_from_graph();
+	std::int32_t n = A.get_rows();
+
+	for (int32_t i = 0; i < n; ++i) {
+		R.set_content(i, i, true);
+	}
+
+	Matrix<bool> power = graph.get_adjacency_matrix_from_graph();
+
+	//R = A + A^2 + ... + A^n
+	for (std::int32_t i = 2; i <= n; ++i){
+		Matrix<bool> next_power(power * A);
+
+		for (std::int32_t ro = 0; ro < n; ++ro) {
+			for (std::int32_t col = 0; col < n; ++col) {
+				R.set_content(ro, col, R.get_content(ro, col) || next_power.get_content(ro, col));
+			}
+		}
+		for (std::int32_t ro = 0; ro < n; ++ro) {
+			for (std::int32_t col = 0; col < n; ++col) {
+				power.set_content(ro, col, next_power.get_content(ro, col));
+			}
+		}
+	}
+	
+	return R;
 }
 
