@@ -12,8 +12,6 @@ DiGraph get_graph_from_adjacency_matrix(const Matrix<bool>& adjacency_matrix){
 		throw std::invalid_argument("The given adjacency matrix is not square");
 	}
 	DiGraph graph;
-
-	//alle Knoten anlegen
 	for (std::int32_t id = 0; id < n; ++id) {
 		graph.add_node();
 	}
@@ -25,7 +23,7 @@ DiGraph get_graph_from_adjacency_matrix(const Matrix<bool>& adjacency_matrix){
 			}
 		}
 	}
-
+    
 	return graph;
 }
 

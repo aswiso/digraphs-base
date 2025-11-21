@@ -18,6 +18,6 @@ TEST_F(CompileTest, test_matrix) {
     M.set_content(0,0, 32);
     Matrix<std::int32_t> Mx(5,5);
     Matrix<std::int32_t> My(5,5);
-    // auto d = Mx + My;
-    // auto e = Mx * My;
+    auto d = Mx + My;
+    auto e = Mx * My;
 }

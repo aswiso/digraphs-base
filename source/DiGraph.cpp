@@ -14,6 +14,30 @@ DiGraph::~DiGraph(){
     node_map.clear();
 }
 
+//temporary fix for test_utils.cpp to run: `DiGraph E = get_graph_from_adjacency_matrix(A);`
+//caused apparently by double deletion when there are two shallow copies of DiGraph
+//destructor tries to free what has already been freed
+DiGraph::DiGraph(const DiGraph& other) {
+    next_free_node_id = other.next_free_node_id;
+    for (auto& [id, node] : other.node_map) {
+        node_map[id] = new Node(*node);
+    }
+}
+
+DiGraph& DiGraph::operator=(const DiGraph& other) {
+    if (this != &other) {
+        for (auto& [id, node] : node_map) delete node;
+        node_map.clear();
+        next_free_node_id = other.next_free_node_id;
+        for (auto& [id, node] : other.node_map) {
+            node_map[id] = new Node(*node);
+        }
+    }
+    return *this;
+}
+
+
+
 std::int32_t DiGraph::get_node_count() const { 
     return static_cast<std::int32_t>(node_map.size()); 
 }

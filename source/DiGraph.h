@@ -13,6 +13,8 @@ class DiGraph {
     public:
         DiGraph();
         ~DiGraph();
+        DiGraph(const DiGraph& other);
+        DiGraph& operator=(const DiGraph& other);
         std::int32_t get_node_count() const;
         Node* add_node();
         Node* add_node_carelessly(std::int32_t new_node_id);

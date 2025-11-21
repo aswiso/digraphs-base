@@ -13,11 +13,19 @@ template <typename T> class Matrix {
 
     public:
         Matrix(std::int32_t rows, std::int32_t columns): rows(rows), columns(columns){
-
             contents = new T[rows * columns]; 
-
-            for (std::int32_t i = 0; i < rows * columns; i++)
-            contents[i] = T(0);
+            for (std::int32_t i = 0; i < rows * columns; i++) {
+                contents[i] = T(0);
+            }
+        }
+        
+        //additional copy constructor for: `auto d = Mx + My;` test_matrix.cpp test
+        //because default copy assignment operator can't assign: `rows = other.rows` to const rows
+        Matrix(const Matrix<T>& other): rows(other.rows), columns(other.columns) {
+            contents = new T[rows * columns];
+            for (std::int32_t i = 0; i < rows * columns; i++) {
+                contents[i] = other.contents[i];
+            }
         }
 
         ~Matrix(){
